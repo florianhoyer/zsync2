@@ -512,7 +512,7 @@ static void buflwr(char *s) {
  * Returns: EOF returns 0, good returns 206 (reading a range block) or 30x
  *  (redirect), error returns <0 */
 int range_fetch_read_http_headers(struct range_fetch *rf) {
-    char buf[512];
+    char buf[8192]; // some servers send very long headers. 8k should be enough, as Apache's default limit is 8k.
     int status;
     uint64_t seen_location = 0;
 
